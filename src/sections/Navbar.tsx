@@ -113,7 +113,17 @@ export default function Navbar() {
                 <a
                   key={l.href}
                   href={l.href}
-                  onClick={() => setOpen(false)}
+                  onClick={(e) => {
+                    // The exit animation unmounts this link, which cancels the
+                    // browser's native smooth fragment scroll — so we scroll
+                    // manually once the menu has finished closing.
+                    e.preventDefault()
+                    setOpen(false)
+                    const id = l.href.slice(1)
+                    window.setTimeout(() => {
+                      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                    }, 340)
+                  }}
                   className="rounded-lg px-3 py-3 text-base font-medium text-ink/80 transition-colors hover:bg-gold/10 hover:text-forest"
                 >
                   {l.label}

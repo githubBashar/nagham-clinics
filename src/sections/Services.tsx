@@ -34,7 +34,7 @@ export default function Services() {
   return (
     <section id="services" className="relative overflow-hidden bg-forest py-24 sm:py-32">
       {/* faint arch ornament top */}
-      <div className="pointer-events-none absolute -top-32 start-1/2 h-72 w-[560px] -translate-x-1/2 rounded-t-full border border-gold/15" aria-hidden />
+      <div className="pointer-events-none absolute -top-32 start-1/2 h-72 w-[560px] -translate-x-1/2 rounded-t-full border border-gold/15 rtl:translate-x-1/2" aria-hidden />
 
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading onDark eyebrow={t.services.eyebrow} title={t.services.title} lead={t.services.lead} />

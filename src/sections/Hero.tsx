@@ -126,7 +126,7 @@ export default function Hero() {
               </span>
             </div>
             {/* gold light wash */}
-            <div className="animate-glow absolute -bottom-16 start-1/2 h-56 w-56 -translate-x-1/2 rounded-full bg-gold/25 blur-3xl" aria-hidden />
+            <div className="animate-glow absolute -bottom-16 start-1/2 h-56 w-56 -translate-x-1/2 rounded-full bg-gold/25 blur-3xl rtl:translate-x-1/2" aria-hidden />
           </motion.div>
 
           {/* floating ESTD badge — continuous gentle float after entrance */}

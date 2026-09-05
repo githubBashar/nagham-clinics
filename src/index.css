@@ -81,25 +81,6 @@ html[lang='ar'] .font-display {
   border-radius: 999px 999px 16px 16px;
 }
 
-/* Subtle repeating arch pattern used inside photo placeholders.
-   Applied via ::before so it layers OVER the element's gradient background
-   instead of clobbering it (background-image isn't additive). */
-.arch-pattern {
-  position: relative;
-}
-
-.arch-pattern::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    radial-gradient(circle at 50% 0%, transparent 62%, rgba(201, 168, 118, 0.18) 63%, rgba(201, 168, 118, 0.18) 66%, transparent 67%),
-    radial-gradient(circle at 50% 0%, transparent 42%, rgba(201, 168, 118, 0.12) 43%, rgba(201, 168, 118, 0.12) 45%, transparent 46%);
-  background-size: 140px 140px;
-  background-position: center bottom;
-}
-
 /* Fine dotted map grid for the location placeholder */
 .map-grid {
   background-image:
@@ -149,4 +130,17 @@ html[lang='ar'] .font-display {
 
 .animate-glow {
   animation: glow-pulse 7s ease-in-out infinite;
+}
+
+/* Respect users who prefer reduced motion: stop ambient loops */
+@media (prefers-reduced-motion: reduce) {
+  .animate-drift,
+  .animate-drift-slow,
+  .animate-marquee,
+  .animate-glow {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }

@@ -35,7 +35,7 @@ export default function Team() {
                     className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.05]"
                   />
                   {/* specialty tag */}
-                  <span className="absolute bottom-3 start-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-forest-deep/80 px-3.5 py-1.5 text-[0.62rem] font-bold tracking-wide text-gold backdrop-blur-sm">
+                  <span className="absolute bottom-3 start-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-forest-deep/80 px-3.5 py-1.5 text-[0.62rem] font-bold tracking-wide text-gold backdrop-blur-sm rtl:translate-x-1/2">
                     {member.tag}
                   </span>
                 </div>

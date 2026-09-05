@@ -130,25 +130,25 @@ export function BookingPanel({ compact = false }: { compact?: boolean }) {
                   <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-forest/70">
                     <User className="h-3.5 w-3.5 text-gold" /> {t.contact.form.firstName}
                   </span>
-                  <input name="firstName" required className={fieldCls} placeholder={t.contact.form.firstName} />
+                  <input name="firstName" required autoComplete="given-name" className={fieldCls} placeholder={t.contact.form.firstName} />
                 </label>
                 <label className="flex flex-col gap-1.5">
                   <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-forest/70">
                     <User className="h-3.5 w-3.5 text-gold" /> {t.contact.form.lastName}
                   </span>
-                  <input name="lastName" required className={fieldCls} placeholder={t.contact.form.lastName} />
+                  <input name="lastName" required autoComplete="family-name" className={fieldCls} placeholder={t.contact.form.lastName} />
                 </label>
                 <label className="flex flex-col gap-1.5">
                   <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-forest/70">
                     <Mail className="h-3.5 w-3.5 text-gold" /> {t.contact.form.email}
                   </span>
-                  <input name="email" type="email" className={fieldCls} placeholder="name@email.com" dir="ltr" />
+                  <input name="email" type="email" autoComplete="email" className={fieldCls} placeholder="name@email.com" dir="ltr" />
                 </label>
                 <label className="flex flex-col gap-1.5">
                   <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-forest/70">
                     <Phone className="h-3.5 w-3.5 text-gold" /> {t.contact.form.phone}
                   </span>
-                  <input name="phone" type="tel" required className={fieldCls} placeholder="09xx xxx xxx" dir="ltr" />
+                  <input name="phone" type="tel" required autoComplete="tel" className={fieldCls} placeholder="09xx xxx xxx" dir="ltr" />
                 </label>
               </div>
 

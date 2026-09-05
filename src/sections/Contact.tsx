@@ -11,7 +11,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="relative overflow-hidden bg-forest py-24 sm:py-32">
-      <div className="pointer-events-none absolute -bottom-40 start-1/2 h-80 w-[620px] -translate-x-1/2 rounded-t-full border border-gold/15" aria-hidden />
+      <div className="pointer-events-none absolute -bottom-40 start-1/2 h-80 w-[620px] -translate-x-1/2 rounded-t-full border border-gold/15 rtl:translate-x-1/2" aria-hidden />
 
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading onDark eyebrow={t.contact.eyebrow} title={t.contact.title} lead={t.contact.lead} />

@@ -96,7 +96,6 @@ const dict = {
       title: 'أحدث المنشورات من عياداتنا',
       lead: 'تابعوا يوميات العيادة، نصائح العناية، ولمحات من نتائج عملنا على إنستغرام وفيسبوك.',
       captions: ['طب الأسنان', 'الليزر', 'البوتوكس والفيلر', 'الميزوثيرابي', 'قبل وبعد', 'الأظافر', 'عناية الرجل', 'البشرة'],
-      comingSoon: 'تابعونا على إنستغرام',
       cta: 'تابعوا @nagham_clinics',
     },
     testimonials: {
@@ -233,7 +232,6 @@ const dict = {
       title: 'Latest posts from the clinic',
       lead: 'Follow clinic life, care tips, and glimpses of our work on Instagram and Facebook.',
       captions: ['Dental care', 'Laser', 'Botox & filler', 'Mesotherapy', 'Before & after', 'Nails', 'Men’s care', 'Skin'],
-      comingSoon: 'Follow us on Instagram',
       cta: 'Follow @nagham_clinics',
     },
     testimonials: {
