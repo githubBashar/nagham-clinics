@@ -29,7 +29,7 @@ const dict = {
     },
     hero: {
       eyebrow: 'عيادات نغم الطبية — دمشق',
-      title: 'ابتسامة صحية، وثقة تليق بكم.',
+      title: 'ايدٍ يُصَاغ بها جمَالٌ كالنَغم',
       tagline: 'مركز متكامل للأسنان والتجميل والعناية الطبية في قلب دمشق.',
       lead: 'فريق من الاختصاصيين، أحدث التجهيزات، وأجواء راقية صُمّمت لراحتكم — كل ما تحتاجونه لصحتكم وجمالكم تحت سقف واحد.',
       ctaPrimary: 'احجز استشارتك الآن',
@@ -165,7 +165,7 @@ const dict = {
     },
     hero: {
       eyebrow: 'NAGHAM Clinics — Damascus',
-      title: 'A healthy smile, and confidence that suits you.',
+      title: 'Hands where beauty is crafted like a melody.',
       tagline: 'A complete dental, aesthetic, and medical center in the heart of Damascus.',
       lead: 'A team of specialists, the latest equipment, and a premium setting designed around you — everything you need for your health and confidence under one roof.',
       ctaPrimary: 'Book your consultation',
