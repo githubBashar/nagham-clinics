@@ -59,7 +59,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 26 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
-            className="mt-4 font-display text-xl italic text-gold sm:text-2xl"
+            className="mt-12 font-display text-xl italic text-gold sm:mt-14 sm:text-2xl"
           >
             {t.hero.tagline}
           </motion.p>
