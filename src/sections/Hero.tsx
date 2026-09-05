@@ -14,6 +14,8 @@ export default function Hero() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const visualY = useTransform(scrollYProgress, [0, 1], [0, 90])
   const ornamentY = useTransform(scrollYProgress, [0, 1], [0, 160])
+  const copyY = useTransform(scrollYProgress, [0, 1], [0, -40])
+  const copyOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0.35])
 
   return (
     <section ref={ref} id="top" className="relative overflow-hidden bg-ivory pt-[76px]">
@@ -25,8 +27,8 @@ export default function Hero() {
       </motion.div>
 
       <div className="relative mx-auto grid max-w-7xl gap-14 px-5 pb-24 pt-14 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-10 lg:pb-32 lg:pt-20">
-        {/* ——— copy ——— */}
-        <div className="max-w-2xl">
+        {/* ——— copy (gentle parallax fade on scroll) ——— */}
+        <motion.div style={{ y: copyY, opacity: copyOpacity }} className="max-w-2xl">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -37,14 +39,21 @@ export default function Hero() {
             {t.hero.eyebrow}
           </motion.p>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 26 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
-            className="font-display text-[2.6rem] leading-[1.12] text-forest sm:text-6xl lg:text-[4.2rem]"
-          >
-            {t.hero.title}
-          </motion.h1>
+          {/* word-by-word staggered headline reveal */}
+          <h1 className="font-display text-[2.6rem] leading-[1.12] text-forest sm:text-6xl lg:text-[4.2rem]">
+            {t.hero.title.split(' ').map((word, i) => (
+              <motion.span
+                key={i}
+                className="inline-block"
+                initial={{ opacity: 0, y: 22 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.08 + i * 0.055, ease: EASE }}
+              >
+                {word}
+                {'\u00A0'}
+              </motion.span>
+            ))}
+          </h1>
 
           <motion.p
             initial={{ opacity: 0, y: 26 }}
@@ -87,7 +96,7 @@ export default function Hero() {
               <ArrowDown className="h-4 w-4" />
             </a>
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* ——— visual: arch-framed placeholder portrait with parallax ——— */}
         <motion.div style={{ y: visualY }} className="relative mx-auto w-full max-w-md lg:max-w-none">
@@ -108,20 +117,26 @@ export default function Hero() {
               </span>
             </div>
             {/* gold light wash */}
-            <div className="absolute -bottom-16 start-1/2 h-56 w-56 -translate-x-1/2 rounded-full bg-gold/25 blur-3xl" aria-hidden />
+            <div className="animate-glow absolute -bottom-16 start-1/2 h-56 w-56 -translate-x-1/2 rounded-full bg-gold/25 blur-3xl" aria-hidden />
           </motion.div>
 
-          {/* floating ESTD badge */}
+          {/* floating ESTD badge — continuous gentle float after entrance */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.7, ease: EASE }}
-            className="absolute -bottom-6 end-6 flex h-28 w-28 rotate-[-8deg] flex-col items-center justify-center rounded-full border border-gold/50 bg-ivory text-center shadow-[0_16px_40px_-12px_rgba(31,61,43,0.3)]"
+            className="absolute -bottom-6 end-6"
           >
+            <motion.div
+              animate={{ y: [0, -7, 0] }}
+              transition={{ repeat: Infinity, duration: 4.5, ease: 'easeInOut', delay: 1.4 }}
+              className="flex h-28 w-28 rotate-[-8deg] flex-col items-center justify-center rounded-full border border-gold/50 bg-ivory text-center shadow-[0_16px_40px_-12px_rgba(31,61,43,0.3)]"
+            >
             <span className="nums-latin text-[0.62rem] font-bold uppercase tracking-[0.2em] text-gold">
               {t.hero.badge.split(' ')[0]}
             </span>
             <span className="nums-latin font-display text-2xl font-semibold text-forest">2025</span>
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>

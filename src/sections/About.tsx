@@ -1,15 +1,23 @@
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { GraduationCap } from 'lucide-react'
 import { useLanguage } from '@/lib/i18n'
 import { Reveal } from '@/components/Reveal'
 
 export default function About() {
   const { t } = useLanguage()
+  const ref = useRef<HTMLElement>(null)
+
+  // subtle parallax: portrait drifts slightly against the scroll
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
+  const portraitY = useTransform(scrollYProgress, [0, 1], [36, -36])
 
   return (
-    <section id="about" className="bg-ivory py-24 sm:py-32">
+    <section ref={ref} id="about" className="bg-ivory py-24 sm:py-32">
       <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 sm:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
         {/* portrait placeholder — arch-framed, on-brand neutral */}
         <Reveal className="relative mx-auto w-full max-w-sm lg:max-w-none">
+          <motion.div style={{ y: portraitY }}>
           <div className="arch-frame arch-pattern relative aspect-[4/5] w-full overflow-hidden border border-gold/30 bg-gradient-to-b from-gold-soft/60 via-ivory to-gold-soft/40">
             <div className="absolute inset-4 rounded-t-full border border-forest/15" aria-hidden />
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 px-10 text-center">
@@ -24,6 +32,7 @@ export default function About() {
             </div>
           </div>
           <div className="absolute -bottom-5 -start-4 h-24 w-24 rounded-t-full border border-gold/40 sm:-start-6" aria-hidden />
+          </motion.div>
         </Reveal>
 
         {/* bio */}

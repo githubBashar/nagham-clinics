@@ -41,7 +41,12 @@ export default function Services() {
         <Stagger className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {t.services.items.map((s, i) => (
             <StaggerItem key={s.key} className="h-full">
-              <article className="group flex h-full flex-col gap-4 rounded-2xl border border-ivory/10 bg-ivory/[0.06] p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-gold/40 hover:bg-ivory/[0.1]">
+              <article className="group relative flex h-full flex-col gap-4 overflow-hidden rounded-2xl border border-ivory/10 bg-ivory/[0.06] p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-gold/40 hover:bg-ivory/[0.1]">
+                {/* gold light sweep on hover */}
+                <span
+                  className="pointer-events-none absolute inset-0 -translate-x-[120%] bg-gradient-to-r from-transparent via-gold/15 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[120%]"
+                  aria-hidden
+                />
                 <div className="flex items-start justify-between">
                   <span className="text-gold transition-transform duration-300 group-hover:scale-110">{ICONS[s.key]}</span>
                   <span className="nums-latin font-display text-sm italic text-gold/50">

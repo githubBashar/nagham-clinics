@@ -1,14 +1,18 @@
 import { useEffect, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion'
 import { CalendarCheck, Globe, Menu, X } from 'lucide-react'
 import { useLanguage } from '@/lib/i18n'
 import { LogoMark } from '@/components/Logo'
 import { EASE } from '@/components/Reveal'
 
 export default function Navbar() {
-  const { t, lang, toggle } = useLanguage()
+  const { t, lang, toggle, rtl } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+
+  // page scroll progress bar (gold line under the navbar)
+  const { scrollYProgress } = useScroll()
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 26, mass: 0.4 })
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -36,6 +40,11 @@ export default function Navbar() {
           : 'bg-transparent'
       }`}
     >
+      <motion.div
+        className={`absolute inset-x-0 top-0 h-[2.5px] bg-gold ${rtl ? 'origin-right' : 'origin-left'}`}
+        style={{ scaleX: progress }}
+        aria-hidden
+      />
       <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between gap-4 px-5 sm:px-8">
         <a href="#top" aria-label="NAGHAM Clinics — home" className="shrink-0">
           <LogoMark emblemSize={44} />

@@ -1,6 +1,7 @@
 import { LanguageProvider } from '@/lib/i18n'
 import Navbar from '@/sections/Navbar'
 import Hero from '@/sections/Hero'
+import Ticker from '@/sections/Ticker'
 import About from '@/sections/About'
 import Services from '@/sections/Services'
 import Why from '@/sections/Why'
@@ -15,9 +16,11 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <Ticker />
         <About />
         <Services />
         <Why />
+        <Ticker />
         <Gallery />
         <Testimonials />
         <Contact />
