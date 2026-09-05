@@ -5,6 +5,20 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // NAGHAM brand palette (derived from the clinic emblem)
+        forest: {
+          DEFAULT: "#1F3D2B", // deep forest green — structure, typography, icons
+          deep: "#16281C",    // footer / darkest sections
+          soft: "#2C4A3B",
+        },
+        gold: {
+          DEFAULT: "#C9A876", // warm cream-gold accent
+          light: "#D4B896",
+          soft: "#E9DCC5",
+        },
+        ivory: "#FAF8F3",     // warm off-white background
+        ink: "#212120",       // near-black charcoal text
+        sage: "#E5DFD3",      // subtle warm border tone
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
