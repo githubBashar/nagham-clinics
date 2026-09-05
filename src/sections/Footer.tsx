@@ -8,6 +8,7 @@ export default function Footer() {
 
   const links = [
     { href: '#about', label: t.nav.about },
+    { href: '#team', label: t.nav.team },
     { href: '#services', label: t.nav.services },
     { href: '#why', label: t.nav.why },
     { href: '#gallery', label: t.nav.gallery },

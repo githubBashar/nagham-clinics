@@ -1,9 +1,8 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { ArrowDown, CalendarCheck, Sparkles } from 'lucide-react'
+import { ArrowDown, CalendarCheck } from 'lucide-react'
 import { useLanguage } from '@/lib/i18n'
 import { useBooking } from '@/lib/booking'
-import { Emblem } from '@/components/Logo'
 import { EASE } from '@/components/Reveal'
 
 export default function Hero() {
@@ -97,22 +96,33 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* ——— visual: arch-framed placeholder portrait with parallax ——— */}
+        {/* ——— visual: arch-framed clinic photo with parallax ——— */}
         <motion.div style={{ y: visualY }} className="relative mx-auto w-full max-w-md lg:max-w-none">
           <motion.div
             initial={{ opacity: 0, y: 40, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.9, delay: 0.25, ease: EASE }}
-            className="arch-frame arch-pattern relative aspect-[4/5] w-full overflow-hidden bg-gradient-to-b from-forest-soft via-forest to-forest-deep shadow-[0_32px_80px_-24px_rgba(31,61,43,0.45)]"
+            className="arch-frame relative aspect-[4/5] w-full overflow-hidden bg-forest shadow-[0_32px_80px_-24px_rgba(31,61,43,0.45)]"
           >
+            {/* clinic interior photography */}
+            <img
+              src="/images/hero-clinic.jpg"
+              alt="NAGHAM Clinics — clinic interior"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+            {/* brand-tinted gradient for legibility */}
+            <div className="absolute inset-0 bg-gradient-to-t from-forest-deep/90 via-forest/20 to-transparent" aria-hidden />
             {/* inner arch line */}
-            <div className="absolute inset-4 rounded-t-full border border-gold/25" aria-hidden />
-            {/* centered emblem — placeholder until real photography is supplied */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-6">
-              <Emblem size={150} className="drop-shadow-[0_6px_24px_rgba(201,168,118,0.35)]" />
-              <span className="inline-flex items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-gold/80">
-                <Sparkles className="h-3.5 w-3.5" />
-                NAGHAM
+            <div className="absolute inset-4 rounded-t-full border border-gold/30" aria-hidden />
+            {/* logo lockup over the photo */}
+            <div className="absolute inset-x-0 bottom-0 flex flex-col items-center gap-3 pb-8">
+              <img
+                src="/images/logo.png"
+                alt="NAGHAM — Dental & Medical Center"
+                className="h-20 w-20 rounded-full shadow-[0_10px_30px_-8px_rgba(0,0,0,0.5)] ring-2 ring-gold/70"
+              />
+              <span className="nums-latin text-[0.62rem] font-semibold uppercase tracking-[0.32em] text-gold">
+                Dental &amp; Medical Center
               </span>
             </div>
             {/* gold light wash */}

@@ -15,20 +15,18 @@ export default function About() {
   return (
     <section ref={ref} id="about" className="bg-ivory py-24 sm:py-32">
       <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 sm:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
-        {/* portrait placeholder — arch-framed, on-brand neutral */}
+        {/* Dr. Nagham portrait — arch-framed */}
         <Reveal className="relative mx-auto w-full max-w-sm lg:max-w-none">
           <motion.div style={{ y: portraitY }}>
-          <div className="arch-frame arch-pattern relative aspect-[4/5] w-full overflow-hidden border border-gold/30 bg-gradient-to-b from-gold-soft/60 via-ivory to-gold-soft/40">
-            <div className="absolute inset-4 rounded-t-full border border-forest/15" aria-hidden />
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 px-10 text-center">
-              {/* abstract silhouette: arch + profile line */}
-              <svg width="120" height="120" viewBox="0 0 120 120" fill="none" aria-hidden>
-                <path d="M30 108 V60 C30 44 42 32 60 32 C78 32 90 44 90 60 V108" stroke="#1F3D2B" strokeWidth="1.6" opacity="0.7" />
-                <path d="M60 44 c-7 0 -12 5.5 -12 12.5 c0 9 6 13 12 13 c6 0 12 -4 12 -13 c0 -7 -5 -12.5 -12 -12.5 z" fill="#C9A876" opacity="0.85" />
-                <path d="M44 108 c0 -14 8 -22 16 -22 c8 0 16 8 16 22" stroke="#1F3D2B" strokeWidth="1.6" opacity="0.7" />
-                <path d="M48 52 c6 -6 18 -6 24 0" stroke="#C9A876" strokeWidth="1.4" />
-              </svg>
-              <p className="text-xs leading-relaxed text-ink/45">{t.about.portraitCaption}</p>
+          <div className="arch-frame relative aspect-[4/5] w-full overflow-hidden border border-gold/30 bg-forest">
+            <img
+              src="/images/team/nagham.jpg"
+              alt={t.about.portraitCaption}
+              className="absolute inset-0 h-full w-full object-cover object-top"
+              loading="lazy"
+            />
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-forest-deep/90 via-forest-deep/40 to-transparent px-6 pb-6 pt-20 text-center">
+              <p className="text-xs font-medium leading-relaxed text-ivory/90 sm:text-sm">{t.about.portraitCaption}</p>
             </div>
           </div>
           <div className="absolute -bottom-5 -start-4 h-24 w-24 rounded-t-full border border-gold/40 sm:-start-6" aria-hidden />

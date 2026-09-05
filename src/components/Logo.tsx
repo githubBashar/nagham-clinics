@@ -115,7 +115,13 @@ export function LogoMark({
 }) {
   return (
     <span className="inline-flex items-center gap-3">
-      <Emblem size={emblemSize} variant="color" />
+      <img
+        src="/images/logo.png"
+        width={emblemSize}
+        height={emblemSize}
+        alt="NAGHAM Clinics — Dental & Medical Center"
+        className={`rounded-full object-cover ring-1 ${onDark ? 'ring-gold/60' : 'ring-gold/50'}`}
+      />
       <span className="flex flex-col leading-none">
         <span
           className={`text-[1.35rem] font-extrabold tracking-[0.18em] ${

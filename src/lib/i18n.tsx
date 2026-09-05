@@ -18,6 +18,7 @@ const dict = {
     dir: 'rtl' as const,
     nav: {
       about: 'عن العيادة',
+      team: 'فريقنا',
       services: 'خدماتنا',
       why: 'لماذا نغم؟',
       gallery: 'العيادة',
@@ -48,6 +49,18 @@ const dict = {
       ],
       cta: 'تعرّف على خدماتنا',
       portraitCaption: 'د. نغم سلّوم — اختصاصي طب الفم وجراحة الأسنان',
+    },
+    team: {
+      eyebrow: 'فريقنا الطبي',
+      title: 'أطباء اختصاصيون لكل حالة',
+      lead: 'فريق متعدد الاختصاصات بقيادة د. نغم سلّوم — لكل حالة طبيبها الاختصاصي، ولكل مريض خطة علاج خاصة به.',
+      items: [
+        { name: 'د. نغم سلّوم', role: 'المؤسِّسة — طب الفم وجراحة الأسنان', tag: 'الأسنان والجراحة' },
+        { name: 'د. لينا الحداد', role: 'الجلدية والتجميل', tag: 'البشرة والليزر' },
+        { name: 'د. عمر خليل', role: 'طب وجراحة الأسنان', tag: 'الزراعة والتركيبات' },
+        { name: 'د. رنا يوسف', role: 'العيادات النسائية', tag: 'صحة المرأة' },
+      ],
+      note: 'الصور والأسماء (باستثناء د. نغم سلّوم) توضيحية — تُستبدل ببيانات الفريق الحقيقية فور اعتمادها.',
     },
     services: {
       eyebrow: 'خدماتنا',
@@ -82,7 +95,7 @@ const dict = {
       eyebrow: 'من إنستغرامنا',
       title: 'أحدث المنشورات من عياداتنا',
       lead: 'تابعوا يوميات العيادة، نصائح العناية، ولمحات من نتائج عملنا على إنستغرام وفيسبوك.',
-      captions: ['منشور إنستغرام', 'منشور إنستغرام', 'منشور إنستغرام', 'منشور إنستغرام', 'منشور إنستغرام', 'منشور إنستغرام'],
+      captions: ['طب الأسنان', 'الليزر', 'البوتوكس والفيلر', 'الميزوثيرابي', 'قبل وبعد', 'الأظافر', 'عناية الرجل', 'البشرة'],
       comingSoon: 'تابعونا على إنستغرام',
       cta: 'تابعوا @nagham_clinics',
     },
@@ -142,6 +155,7 @@ const dict = {
     dir: 'ltr' as const,
     nav: {
       about: 'About',
+      team: 'Our Team',
       services: 'Services',
       why: 'Why NAGHAM',
       gallery: 'The Clinic',
@@ -172,6 +186,18 @@ const dict = {
       ],
       cta: 'Discover our services',
       portraitCaption: 'Dr. Nagham Saloum — Oral & Maxillofacial Medicine and Dental Surgery',
+    },
+    team: {
+      eyebrow: 'Our medical team',
+      title: 'A specialist for every case',
+      lead: 'A multi-specialty team led by Dr. Nagham Saloum — every case gets its own specialist, every patient their own treatment plan.',
+      items: [
+        { name: 'Dr. Nagham Saloum', role: 'Founder — Oral & Maxillofacial Medicine and Dental Surgery', tag: 'Dental & Surgery' },
+        { name: 'Dr. Lina Haddad', role: 'Dermatology & Aesthetics', tag: 'Skin & Laser' },
+        { name: 'Dr. Omar Khalil', role: 'Dental Surgery', tag: 'Implants & Prosthetics' },
+        { name: 'Dr. Rania Youssef', role: 'Gynecology', tag: 'Women’s Health' },
+      ],
+      note: 'Portraits and names (except Dr. Nagham Saloum) are placeholders — to be replaced with the real team’s details.',
     },
     services: {
       eyebrow: 'Our services',
@@ -206,7 +232,7 @@ const dict = {
       eyebrow: 'From our Instagram',
       title: 'Latest posts from the clinic',
       lead: 'Follow clinic life, care tips, and glimpses of our work on Instagram and Facebook.',
-      captions: ['Instagram post', 'Instagram post', 'Instagram post', 'Instagram post', 'Instagram post', 'Instagram post'],
+      captions: ['Dental care', 'Laser', 'Botox & filler', 'Mesotherapy', 'Before & after', 'Nails', 'Men’s care', 'Skin'],
       comingSoon: 'Follow us on Instagram',
       cta: 'Follow @nagham_clinics',
     },

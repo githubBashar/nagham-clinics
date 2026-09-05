@@ -4,6 +4,7 @@ import Navbar from '@/sections/Navbar'
 import Hero from '@/sections/Hero'
 import Ticker from '@/sections/Ticker'
 import About from '@/sections/About'
+import Team from '@/sections/Team'
 import Services from '@/sections/Services'
 import Why from '@/sections/Why'
 import Gallery from '@/sections/Gallery'
@@ -20,6 +21,7 @@ export default function Home() {
           <Hero />
           <Ticker />
           <About />
+          <Team />
           <Services />
           <Why />
           <Ticker />
