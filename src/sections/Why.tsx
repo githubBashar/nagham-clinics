@@ -1,9 +1,11 @@
 import { useLanguage } from '@/lib/i18n'
+import { useBooking } from '@/lib/booking'
 import SectionHeading from '@/components/SectionHeading'
 import { Reveal, Stagger, StaggerItem } from '@/components/Reveal'
 
 export default function Why() {
   const { t } = useLanguage()
+  const { openBooking } = useBooking()
 
   return (
     <section id="why" className="bg-ivory py-24 sm:py-32">
@@ -28,12 +30,12 @@ export default function Why() {
         </Stagger>
 
         <Reveal delay={0.15} className="mt-12 text-center">
-          <a
-            href="#contact"
+          <button
+            onClick={openBooking}
             className="inline-flex items-center gap-2 text-sm font-bold text-forest underline decoration-gold decoration-2 underline-offset-8 transition-colors hover:text-gold"
           >
             {t.why.cta}
-          </a>
+          </button>
         </Reveal>
       </div>
     </section>

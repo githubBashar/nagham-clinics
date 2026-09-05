@@ -1,4 +1,5 @@
 import { LanguageProvider } from '@/lib/i18n'
+import { BookingProvider } from '@/lib/booking'
 import Navbar from '@/sections/Navbar'
 import Hero from '@/sections/Hero'
 import Ticker from '@/sections/Ticker'
@@ -13,19 +14,21 @@ import Footer from '@/sections/Footer'
 export default function Home() {
   return (
     <LanguageProvider>
-      <Navbar />
-      <main>
-        <Hero />
-        <Ticker />
-        <About />
-        <Services />
-        <Why />
-        <Ticker />
-        <Gallery />
-        <Testimonials />
-        <Contact />
-      </main>
-      <Footer />
+      <BookingProvider>
+        <Navbar />
+        <main>
+          <Hero />
+          <Ticker />
+          <About />
+          <Services />
+          <Why />
+          <Ticker />
+          <Gallery />
+          <Testimonials />
+          <Contact />
+        </main>
+        <Footer />
+      </BookingProvider>
     </LanguageProvider>
   )
 }

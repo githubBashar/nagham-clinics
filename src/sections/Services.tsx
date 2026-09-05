@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react'
 import { Droplets, Flower2, FlaskConical, Hand, Sparkles, Syringe, User, Zap, Scissors, CalendarCheck } from 'lucide-react'
 import { useLanguage } from '@/lib/i18n'
+import { useBooking } from '@/lib/booking'
 import SectionHeading from '@/components/SectionHeading'
 import { Stagger, StaggerItem, Reveal } from '@/components/Reveal'
-import { CLINIC } from '@/lib/constants'
 
 /** Thin-line icons per service — plain strokes, no colored containers (keeps the premium look) */
 function ToothIcon() {
@@ -29,6 +29,7 @@ const ICONS: Record<string, ReactNode> = {
 
 export default function Services() {
   const { t } = useLanguage()
+  const { openBooking } = useBooking()
 
   return (
     <section id="services" className="relative overflow-hidden bg-forest py-24 sm:py-32">
@@ -61,15 +62,13 @@ export default function Services() {
         </Stagger>
 
         <Reveal delay={0.15} className="mt-14 text-center">
-          <a
-            href={CLINIC.whatsapp}
-            target="_blank"
-            rel="noreferrer"
+          <button
+            onClick={openBooking}
             className="inline-flex items-center gap-2.5 rounded-full bg-gold px-8 py-3.5 text-sm font-bold text-forest transition-all duration-200 hover:scale-[1.03] hover:bg-gold-light"
           >
             <CalendarCheck className="h-4.5 w-4.5" />
             {t.services.cta}
-          </a>
+          </button>
         </Reveal>
       </div>
     </section>

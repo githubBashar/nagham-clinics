@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion'
 import { CalendarCheck, Globe, Menu, X } from 'lucide-react'
 import { useLanguage } from '@/lib/i18n'
+import { useBooking } from '@/lib/booking'
 import { LogoMark } from '@/components/Logo'
 import { EASE } from '@/components/Reveal'
 
 export default function Navbar() {
   const { t, lang, toggle, rtl } = useLanguage()
+  const { openBooking } = useBooking()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -74,13 +76,13 @@ export default function Navbar() {
             {langLabel}
           </button>
 
-          <a
-            href="#contact"
+          <button
+            onClick={openBooking}
             className="hidden items-center gap-2 rounded-full bg-forest px-5 py-2.5 text-sm font-semibold text-ivory transition-all duration-200 hover:scale-[1.03] hover:bg-forest-soft sm:inline-flex"
           >
             <CalendarCheck className="h-4 w-4" />
             {t.nav.book}
-          </a>
+          </button>
 
           {/* mobile menu button */}
           <button
@@ -116,14 +118,16 @@ export default function Navbar() {
                   {l.label}
                 </a>
               ))}
-              <a
-                href="#contact"
-                onClick={() => setOpen(false)}
+              <button
+                onClick={() => {
+                  setOpen(false)
+                  openBooking()
+                }}
                 className="mt-3 inline-flex items-center justify-center gap-2 rounded-full bg-forest px-5 py-3 text-sm font-semibold text-ivory"
               >
                 <CalendarCheck className="h-4 w-4" />
                 {t.nav.book}
-              </a>
+              </button>
             </div>
           </motion.nav>
         )}

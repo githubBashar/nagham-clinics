@@ -2,12 +2,13 @@ import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowDown, CalendarCheck, Sparkles } from 'lucide-react'
 import { useLanguage } from '@/lib/i18n'
+import { useBooking } from '@/lib/booking'
 import { Emblem } from '@/components/Logo'
-import { CLINIC } from '@/lib/constants'
 import { EASE } from '@/components/Reveal'
 
 export default function Hero() {
   const { t } = useLanguage()
+  const { openBooking } = useBooking()
   const ref = useRef<HTMLElement>(null)
 
   // Subtle parallax: the arch visual drifts up slower than the scroll
@@ -79,15 +80,13 @@ export default function Hero() {
             transition={{ duration: 0.7, delay: 0.4, ease: EASE }}
             className="mt-9 flex flex-wrap items-center gap-4"
           >
-            <a
-              href={CLINIC.whatsapp}
-              target="_blank"
-              rel="noreferrer"
+            <button
+              onClick={openBooking}
               className="inline-flex items-center gap-2.5 rounded-full bg-forest px-7 py-3.5 text-sm font-semibold text-ivory transition-all duration-200 hover:scale-[1.03] hover:bg-forest-soft"
             >
               <CalendarCheck className="h-4.5 w-4.5" />
               {t.hero.ctaPrimary}
-            </a>
+            </button>
             <a
               href="#services"
               className="inline-flex items-center gap-2.5 rounded-full border border-forest/25 px-7 py-3.5 text-sm font-semibold text-forest transition-all duration-200 hover:border-gold hover:bg-gold/10"
