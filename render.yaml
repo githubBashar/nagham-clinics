@@ -1,6 +1,6 @@
 services:
   - type: web
     name: nagham-clinics
-    runtime: static
-    buildCommand: pnpm install --frozen-lockfile && pnpm build
-    staticPublishPath: dist
+    runtime: docker
+    plan: free
+    healthCheckPath: /
