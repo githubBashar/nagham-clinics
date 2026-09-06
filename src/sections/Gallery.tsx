@@ -125,32 +125,43 @@ function RealTile({ url, caption, cover }: { url: string; caption: string; cover
         <span className="ms-auto text-[0.68rem] font-medium text-ink/45">{caption}</span>
       </div>
 
-      {/* large overlay player — nearly full-screen Instagram embed */}
+      {/* enlarged lightbox window — opens on tile tap, closes ONLY via the
+          X button (or Esc); closing unmounts the iframe, which stops the
+          video completely */}
       {playing && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-forest-deep/80 p-4 backdrop-blur-sm sm:p-8"
-          onClick={() => setPlaying(false)}
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8"
           role="dialog"
           aria-modal="true"
           aria-label={caption}
         >
-          <div
-            className="relative max-h-full w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation()
-                setPlaying(false)
-              }}
-              className="absolute end-3 top-3 z-[110] flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-forest-deep text-ivory shadow-lg transition-transform hover:scale-105 hover:bg-forest"
-              aria-label="Close"
-            >
-              <X className="h-5 w-5" />
-            </button>
+          {/* backdrop — purely visual; clicks pass through and do NOT close,
+              so a tap inside/around the video never kills playback by accident */}
+          <div className="absolute inset-0 bg-forest-deep/85 backdrop-blur-sm" aria-hidden />
 
-            <div ref={hostRef} className="max-h-[85vh] overflow-y-auto">
+          <div className="relative flex max-h-full w-full max-w-lg flex-col overflow-hidden rounded-3xl bg-white shadow-2xl">
+            {/* header bar with the ONLY close control */}
+            <div className="flex items-center gap-2.5 border-b border-sage/60 px-4 py-3">
+              <img
+                src="/images/logo.png"
+                alt="NAGHAM Clinics"
+                className="h-7 w-7 rounded-full object-cover ring-1 ring-gold/40"
+              />
+              <span className="text-xs font-semibold text-ink/80" dir="ltr">
+                nagham_clinics
+              </span>
+              <button
+                type="button"
+                onClick={() => setPlaying(false)}
+                className="ms-auto flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-forest-deep text-ivory transition-transform hover:scale-105 hover:bg-forest"
+                aria-label="Close"
+              >
+                <X className="h-4.5 w-4.5" />
+              </button>
+            </div>
+
+            {/* the Instagram post, large */}
+            <div ref={hostRef} className="max-h-[78vh] overflow-y-auto">
               {failed ? (
                 <div className="flex flex-col items-center justify-center gap-4 px-8 py-16 text-center">
                   <Instagram className="h-8 w-8 text-gold" strokeWidth={1.5} />
@@ -169,7 +180,7 @@ function RealTile({ url, caption, cover }: { url: string; caption: string; cover
                   src={embedUrl}
                   title={caption}
                   allow="encrypted-media; clipboard-write"
-                  className="h-[80vh] w-full border-0"
+                  className="h-[72vh] w-full border-0"
                 />
               )}
             </div>
