@@ -97,6 +97,13 @@ const dict = {
       captions: ['طب الأسنان', 'الليزر', 'البوتوكس والفيلر', 'الميزوثيرابي', 'قبل وبعد', 'الأظافر', 'عناية الرجل', 'البشرة'],
       cta: 'تابعوا @nagham_clinics',
     },
+    insta: {
+      eyebrow: 'أحدث منشوراتنا على إنستغرام',
+      title: 'تابعونا على إنستغرام',
+      lead: 'آخر المنشورات من حسابنا الرسمي — مباشرة من العيادة.',
+      viewPost: 'شاهدوا المنشور على إنستغرام',
+      cta: 'تابعونا على إنستغرام',
+    },
     testimonials: {
       eyebrow: 'آراء مرضانا',
       title: 'ثقتكم هي قصتنا الحقيقية',
@@ -231,6 +238,13 @@ const dict = {
       lead: 'Follow clinic life, care tips, and glimpses of our work on Instagram and Facebook.',
       captions: ['Dental care', 'Laser', 'Botox & filler', 'Mesotherapy', 'Before & after', 'Nails', 'Men’s care', 'Skin'],
       cta: 'Follow @nagham_clinics',
+    },
+    insta: {
+      eyebrow: 'Latest on Instagram',
+      title: 'Follow us on Instagram',
+      lead: 'The newest posts from our official account — straight from the clinic.',
+      viewPost: 'View post on Instagram',
+      cta: 'Follow us on Instagram',
     },
     testimonials: {
       eyebrow: 'Testimonials',
