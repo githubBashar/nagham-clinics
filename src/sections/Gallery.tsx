@@ -6,34 +6,21 @@ import { Reveal, Stagger, StaggerItem } from '@/components/Reveal'
 import { CLINIC } from '@/lib/constants'
 
 /**
- * Instagram feed section. The first tiles are REAL posts from
- * @nagham_clinics, embedded natively (official blockquote.instagram-media +
- * Instagram's own embed.js — exactly what "..." > Embed > Copy embed code
- * generates; no API token, no scraper). The remaining tiles are styled post
- * frames (avatar row with the clinic logo, photo, like/comment bar) whose
- * photos live in /public/images/gallery/.
+ * Instagram feed section: one tile per REAL post from @nagham_clinics.
+ * Each tile shows a cover photo; tapping play loads Instagram's official
+ * iframe embed (/reel|p/<id>/embed) so the reel plays right inside the
+ * tile — no API token, no scraper.
  *
- * GENERIC: to feature newer real posts, open a post/reel in Instagram >
+ * GENERIC: to feature newer posts, open a post/reel in Instagram >
  * "..." > Copy Link, strip any "?stkn=..."/"?igsh=..." tracking part, and
- * put the URL at the front of REAL_POSTS below — tiles fill from the start
- * with as many real posts as are listed; the rest use gallery photos.
+ * replace the URLs in REAL_POSTS below. Keep one cover per post in
+ * REAL_POST_COVERS (drop the image into /public/images/gallery/).
  */
 const REAL_POSTS: string[] = [
   'https://www.instagram.com/reel/Dc6oBScjanF/',
   'https://www.instagram.com/reel/Dc3fWhEoBt1/',
   'https://www.instagram.com/reel/DctfGexIvbe/',
   'https://www.instagram.com/reel/Dcl1eMnopWs/',
-]
-
-const POST_IMAGES = [
-  '/images/gallery/dental.jpg',
-  '/images/gallery/laser.jpg',
-  '/images/gallery/botox.jpg',
-  '/images/gallery/meso.jpg',
-  '/images/gallery/veneers.jpg',
-  '/images/gallery/nails.jpg',
-  '/images/gallery/men.jpg',
-  '/images/gallery/skin.jpg',
 ]
 
 /**
@@ -51,12 +38,6 @@ const REAL_POST_COVERS: (string | null)[] = [
   '/images/gallery/botox.jpg',
   '/images/gallery/meso.jpg',
 ]
-
-declare global {
-  interface Window {
-    instgrm?: { Embeds: { process: () => void } }
-  }
-}
 
 /**
  * A real Instagram post that looks and sizes EXACTLY like the photo tiles:
@@ -177,12 +158,11 @@ function RealTile({ url, caption, cover }: { url: string; caption: string; cover
 export default function Gallery() {
   const { t } = useLanguage()
 
-  // Tiles fill left-to-right: real embeds first, styled photo tiles after.
-  const tiles = t.gallery.captions.map((caption, i) => ({
-    caption,
-    realUrl: REAL_POSTS[i] ?? null,
-    realCover: REAL_POST_COVERS[i] ?? null,
-    photo: POST_IMAGES[i % POST_IMAGES.length],
+  // Exactly the real posts, nothing else: one tile per REAL_POSTS entry.
+  const tiles = REAL_POSTS.map((url, i) => ({
+    url,
+    cover: REAL_POST_COVERS[i] ?? null,
+    caption: t.gallery.captions[i % t.gallery.captions.length],
   }))
 
   return (
@@ -192,51 +172,8 @@ export default function Gallery() {
 
         <Stagger className="mt-16 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
           {tiles.map((tile) => (
-            <StaggerItem key={tile.realUrl ?? tile.caption}>
-              {tile.realUrl ? (
-                <RealTile url={tile.realUrl} caption={tile.caption} cover={tile.realCover} />
-              ) : (
-                <a
-                  href={CLINIC.instagram}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group block overflow-hidden rounded-2xl border border-sage bg-white shadow-[0_10px_30px_-18px_rgba(31,61,43,0.25)] transition-all duration-300 hover:-translate-y-1.5 hover:border-gold/60 hover:shadow-[0_22px_44px_-18px_rgba(31,61,43,0.35)]"
-                >
-                  {/* post header: clinic logo avatar + handle */}
-                  <div className="flex items-center gap-2.5 px-3.5 py-2.5">
-                    <img
-                      src="/images/logo.png"
-                      alt="NAGHAM Clinics"
-                      className="h-7 w-7 rounded-full object-cover ring-1 ring-gold/40"
-                    />
-                    <span className="text-xs font-semibold text-ink/80" dir="ltr">
-                      nagham_clinics
-                    </span>
-                    <Instagram className="ms-auto h-3.5 w-3.5 text-ink/30" strokeWidth={1.5} />
-                  </div>
-
-                  {/* post photo */}
-                  <div className="relative aspect-square overflow-hidden bg-ivory">
-                    <img
-                      src={tile.photo}
-                      alt={tile.caption}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
-                    />
-                    <div
-                      className="absolute inset-0 bg-forest/0 transition-colors duration-300 group-hover:bg-forest/10"
-                      aria-hidden
-                    />
-                  </div>
-
-                  {/* like / comment bar */}
-                  <div className="flex items-center gap-4 px-3.5 py-2.5">
-                    <Heart className="h-4 w-4 text-ink/45 transition-colors group-hover:text-gold" strokeWidth={1.5} />
-                    <MessageCircle className="h-4 w-4 text-ink/45" strokeWidth={1.5} />
-                    <span className="ms-auto text-[0.68rem] font-medium text-ink/45">{tile.caption}</span>
-                  </div>
-                </a>
-              )}
+            <StaggerItem key={tile.url}>
+              <RealTile url={tile.url} caption={tile.caption} cover={tile.cover} />
             </StaggerItem>
           ))}
         </Stagger>
