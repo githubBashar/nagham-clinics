@@ -125,64 +125,74 @@ function RealTile({ url, caption, cover }: { url: string; caption: string; cover
         <span className="ms-auto text-[0.68rem] font-medium text-ink/45">{caption}</span>
       </div>
 
-      {/* enlarged lightbox window — opens on tile tap, closes ONLY via the
-          X button (or Esc); closing unmounts the iframe, which stops the
-          video completely */}
+      {/* enlarged lightbox window — opens on tile tap, closes via the X
+          button or Esc; closing unmounts the iframe, which stops the video
+          completely. The header bar sits in a separate layer ABOVE the
+          iframe so Instagram's player can never block the close button. */}
       {playing && (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8"
-          role="dialog"
-          aria-modal="true"
-          aria-label={caption}
-        >
-          {/* backdrop — purely visual; clicks pass through and do NOT close,
-              so a tap inside/around the video never kills playback by accident */}
+        <div className="fixed inset-0 z-[100]" role="dialog" aria-modal="true" aria-label={caption}>
+          {/* backdrop — purely visual, clicks never close by accident */}
           <div className="absolute inset-0 bg-forest-deep/85 backdrop-blur-sm" aria-hidden />
 
-          <div className="relative flex max-h-full w-full max-w-lg flex-col overflow-hidden rounded-3xl bg-white shadow-2xl">
-            {/* header bar with the ONLY close control */}
-            <div className="flex items-center gap-2.5 border-b border-sage/60 px-4 py-3">
+          {/* close bar — separate top layer, always tappable */}
+          <div className="absolute inset-x-0 top-0 z-[130] flex items-center justify-between gap-3 bg-forest-deep/90 px-4 py-3 backdrop-blur-sm">
+            <span className="flex items-center gap-2.5">
               <img
                 src="/images/logo.png"
                 alt="NAGHAM Clinics"
                 className="h-7 w-7 rounded-full object-cover ring-1 ring-gold/40"
               />
-              <span className="text-xs font-semibold text-ink/80" dir="ltr">
+              <span className="text-xs font-semibold text-ivory" dir="ltr">
                 nagham_clinics
               </span>
+            </span>
+            <span className="flex items-center gap-2">
+              <a
+                href={url}
+                target="_blank"
+                rel="noreferrer"
+                className="hidden items-center gap-1.5 rounded-full border border-ivory/25 px-4 py-1.5 text-[0.68rem] font-bold text-ivory transition-colors hover:border-gold/60 sm:inline-flex"
+              >
+                <ExternalLink className="h-3 w-3" />
+                {t.insta.viewPost}
+              </a>
               <button
                 type="button"
                 onClick={() => setPlaying(false)}
-                className="ms-auto flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-forest-deep text-ivory transition-transform hover:scale-105 hover:bg-forest"
+                className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-ivory text-forest shadow-lg transition-transform hover:scale-105"
                 aria-label="Close"
               >
-                <X className="h-4.5 w-4.5" />
+                <X className="h-5 w-5" />
               </button>
-            </div>
+            </span>
+          </div>
 
-            {/* the Instagram post, large */}
-            <div ref={hostRef} className="max-h-[78vh] overflow-y-auto">
-              {failed ? (
-                <div className="flex flex-col items-center justify-center gap-4 px-8 py-16 text-center">
-                  <Instagram className="h-8 w-8 text-gold" strokeWidth={1.5} />
-                  <a
-                    href={url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full border border-forest/25 px-6 py-3 text-sm font-bold text-forest transition-colors hover:border-gold/60 hover:bg-gold/5"
-                  >
-                    <ExternalLink className="h-4 w-4" />
-                    {t.insta.viewPost}
-                  </a>
-                </div>
-              ) : (
-                <iframe
-                  src={embedUrl}
-                  title={caption}
-                  allow="encrypted-media; clipboard-write"
-                  className="h-[72vh] w-full border-0"
-                />
-              )}
+          {/* the Instagram post, large — padded below the close bar */}
+          <div className="absolute inset-0 flex items-center justify-center p-4 pt-20 sm:p-8 sm:pt-24">
+            <div className="max-h-full w-full max-w-lg overflow-hidden rounded-3xl bg-white shadow-2xl">
+              <div ref={hostRef} className="max-h-[70vh] overflow-y-auto">
+                {failed ? (
+                  <div className="flex flex-col items-center justify-center gap-4 px-8 py-16 text-center">
+                    <Instagram className="h-8 w-8 text-gold" strokeWidth={1.5} />
+                    <a
+                      href={url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 rounded-full border border-forest/25 px-6 py-3 text-sm font-bold text-forest transition-colors hover:border-gold/60 hover:bg-gold/5"
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                      {t.insta.viewPost}
+                    </a>
+                  </div>
+                ) : (
+                  <iframe
+                    src={embedUrl}
+                    title={caption}
+                    allow="encrypted-media; clipboard-write"
+                    className="h-[65vh] w-full border-0"
+                  />
+                )}
+              </div>
             </div>
           </div>
         </div>
