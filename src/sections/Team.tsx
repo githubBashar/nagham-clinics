@@ -1,6 +1,6 @@
 import { useLanguage } from '@/lib/i18n'
 import SectionHeading from '@/components/SectionHeading'
-import { Reveal, Stagger, StaggerItem } from '@/components/Reveal'
+import { Stagger, StaggerItem } from '@/components/Reveal'
 
 /**
  * Medical team. Portrait photos live in /public/images/team/.
@@ -46,12 +46,6 @@ export default function Team() {
             </StaggerItem>
           ))}
         </Stagger>
-
-        <Reveal delay={0.2}>
-          <p className="mx-auto mt-10 max-w-md text-center text-[0.72rem] leading-relaxed text-ink/35">
-            {t.team.note}
-          </p>
-        </Reveal>
       </div>
     </section>
   )

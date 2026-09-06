@@ -60,7 +60,6 @@ const dict = {
         { name: 'د. عمر خليل', role: 'طب وجراحة الأسنان', tag: 'الزراعة والتركيبات' },
         { name: 'د. رنا يوسف', role: 'العيادات النسائية', tag: 'صحة المرأة' },
       ],
-      note: 'الصور والأسماء (باستثناء د. نغم سلّوم) توضيحية — تُستبدل ببيانات الفريق الحقيقية فور اعتمادها.',
     },
     services: {
       eyebrow: 'خدماتنا',
@@ -196,7 +195,6 @@ const dict = {
         { name: 'Dr. Omar Khalil', role: 'Dental Surgery', tag: 'Implants & Prosthetics' },
         { name: 'Dr. Rania Youssef', role: 'Gynecology', tag: 'Women’s Health' },
       ],
-      note: 'Portraits and names (except Dr. Nagham Saloum) are placeholders — to be replaced with the real team’s details.',
     },
     services: {
       eyebrow: 'Our services',
