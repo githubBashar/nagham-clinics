@@ -22,6 +22,7 @@ const REAL_POSTS: string[] = [
   'https://www.instagram.com/reel/Dc6oBScjanF/',
   'https://www.instagram.com/reel/Dc3fWhEoBt1/',
   'https://www.instagram.com/reel/DctfGexIvbe/',
+  'https://www.instagram.com/reel/Dcl1eMnopWs/',
 ]
 
 const POST_IMAGES = [
@@ -48,6 +49,7 @@ const REAL_POST_COVERS: (string | null)[] = [
   '/images/gallery/laser.jpg',
   '/images/gallery/dental.jpg',
   '/images/gallery/botox.jpg',
+  '/images/gallery/meso.jpg',
 ]
 
 declare global {
