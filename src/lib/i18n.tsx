@@ -296,13 +296,18 @@ const LanguageContext = createContext<{
 }>({ lang: 'ar', setLang: () => {}, toggle: () => {}, t: dict.ar, rtl: true })
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  // Arabic is the clinic's primary language — it is the default
-  const [lang, setLang] = useState<Lang>('ar')
+  // Arabic is the clinic's primary language — it is the default.
+  // A saved choice (localStorage) wins so a reload keeps the user's language.
+  const [lang, setLang] = useState<Lang>(() => {
+    const saved = window.localStorage.getItem('nagham-lang')
+    return saved === 'en' || saved === 'ar' ? saved : 'ar'
+  })
 
   useEffect(() => {
     // Flip the whole document direction; logical CSS utilities handle the mirror
     document.documentElement.lang = lang
     document.documentElement.dir = dict[lang].dir
+    window.localStorage.setItem('nagham-lang', lang)
   }, [lang])
 
   const toggle = () => setLang((l) => (l === 'ar' ? 'en' : 'ar'))
