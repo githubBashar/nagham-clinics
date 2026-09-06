@@ -140,11 +140,14 @@ function RealTile({ url, caption, cover }: { url: string; caption: string; cover
           >
             <button
               type="button"
-              onClick={() => setPlaying(false)}
-              className="absolute end-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-forest-deep/70 text-ivory backdrop-blur-sm transition-colors hover:bg-forest"
+              onClick={(e) => {
+                e.stopPropagation()
+                setPlaying(false)
+              }}
+              className="absolute end-3 top-3 z-[110] flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-forest-deep text-ivory shadow-lg transition-transform hover:scale-105 hover:bg-forest"
               aria-label="Close"
             >
-              <X className="h-4.5 w-4.5" />
+              <X className="h-5 w-5" />
             </button>
 
             <div ref={hostRef} className="max-h-[85vh] overflow-y-auto">
