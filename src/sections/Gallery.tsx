@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
-import { ExternalLink, Heart, Instagram, MessageCircle, Play, X } from 'lucide-react'
+import { Heart, Instagram, MessageCircle, Play } from 'lucide-react'
 import { useLanguage } from '@/lib/i18n'
 import SectionHeading from '@/components/SectionHeading'
 import { Reveal, Stagger, StaggerItem } from '@/components/Reveal'
@@ -40,45 +39,21 @@ const REAL_POST_COVERS: (string | null)[] = [
 ]
 
 /**
- * A real Instagram post that looks and sizes EXACTLY like a photo tile:
- * cover photo, play button, like/comment bar. Tapping opens a large
- * overlay where the official Instagram embed plays the post nearly
- * full-screen — close via the X, the backdrop or Esc.
- * If Instagram is blocked (ad blocker / offline), the overlay falls back
- * to a link to the post instead of showing a broken box.
+ * A real Instagram post shown as a tile identical to the site's photo tiles:
+ * cover photo, play badge, like/comment bar. A tap opens the post directly
+ * on instagram.com in a new tab — no inline player, no overlay.
  */
 function RealTile({ url, caption, cover }: { url: string; caption: string; cover: string | null }) {
   const { t } = useLanguage()
-  const hostRef = useRef<HTMLDivElement>(null)
-  const [playing, setPlaying] = useState(false)
-  const [failed, setFailed] = useState(false)
-  const embedUrl = `${url.replace(/\/+$/, '')}/embed/captioned/`
-
-  // If the iframe can't load within 8s, treat the embed as blocked.
-  useEffect(() => {
-    if (!playing) return
-    setFailed(false)
-    const timer = window.setTimeout(() => {
-      const frame = hostRef.current?.querySelector('iframe')
-      if (!frame || frame.offsetHeight < 50) setFailed(true)
-    }, 8000)
-    return () => window.clearTimeout(timer)
-  }, [playing, url])
-
-  // Lock page scroll while the overlay is open; close on Esc.
-  useEffect(() => {
-    if (!playing) return
-    document.body.style.overflow = 'hidden'
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setPlaying(false)
-    window.addEventListener('keydown', onKey)
-    return () => {
-      document.body.style.overflow = ''
-      window.removeEventListener('keydown', onKey)
-    }
-  }, [playing])
 
   return (
-    <div className="group relative overflow-hidden rounded-2xl border border-sage bg-white shadow-[0_10px_30px_-18px_rgba(31,61,43,0.25)] transition-all duration-300 hover:-translate-y-1.5 hover:border-gold/60 hover:shadow-[0_22px_44px_-18px_rgba(31,61,43,0.35)]">
+    <a
+      href={url}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={t.insta.viewPost}
+      className="group block overflow-hidden rounded-2xl border border-sage bg-white shadow-[0_10px_30px_-18px_rgba(31,61,43,0.25)] transition-all duration-300 hover:-translate-y-1.5 hover:border-gold/60 hover:shadow-[0_22px_44px_-18px_rgba(31,61,43,0.35)]"
+    >
       {/* post header: clinic logo avatar + handle */}
       <div className="flex items-center gap-2.5 px-3.5 py-2.5">
         <img
@@ -92,14 +67,8 @@ function RealTile({ url, caption, cover }: { url: string; caption: string; cover
         <Instagram className="ms-auto h-3.5 w-3.5 text-ink/30" strokeWidth={1.5} />
       </div>
 
-      {/* media area — cover photo; the whole area is the play button, so a
-          single tap opens the large overlay immediately */}
-      <button
-        type="button"
-        onClick={() => setPlaying(true)}
-        className="relative block aspect-square w-full cursor-pointer overflow-hidden bg-ivory text-start"
-        aria-label={t.insta.viewPost}
-      >
+      {/* cover photo with play badge */}
+      <div className="relative aspect-square overflow-hidden bg-ivory">
         {cover && (
           <img
             src={cover}
@@ -116,7 +85,7 @@ function RealTile({ url, caption, cover }: { url: string; caption: string; cover
             @nagham_clinics
           </span>
         </span>
-      </button>
+      </div>
 
       {/* like / comment bar */}
       <div className="flex items-center gap-4 px-3.5 py-2.5">
@@ -124,89 +93,7 @@ function RealTile({ url, caption, cover }: { url: string; caption: string; cover
         <MessageCircle className="h-4 w-4 text-ink/45" strokeWidth={1.5} />
         <span className="ms-auto text-[0.68rem] font-medium text-ink/45">{caption}</span>
       </div>
-
-      {/* enlarged lightbox window, designed exactly like the site's own
-          cards: ivory card, sage border, forest/gold accents, rounded-2xl,
-          same shadow — opens on tile tap, closes via X or Esc; closing
-          unmounts the iframe, which stops the video completely. The close
-          button lives in a separate layer ABOVE the iframe so Instagram's
-          player can never block it. */}
-      {playing && (
-        <div className="fixed inset-0 z-[100]" role="dialog" aria-modal="true" aria-label={caption}>
-          {/* backdrop — purely visual, clicks never close by accident */}
-          <div className="absolute inset-0 bg-forest-deep/85 backdrop-blur-sm" aria-hidden />
-
-          {/* close button — separate top layer, always tappable */}
-          <button
-            type="button"
-            onClick={() => setPlaying(false)}
-            className="absolute end-4 top-4 z-[130] flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-forest text-ivory shadow-[0_10px_30px_-10px_rgba(31,61,43,0.6)] ring-1 ring-gold/40 transition-all duration-200 hover:scale-105 hover:bg-forest-soft"
-            aria-label="Close"
-          >
-            <X className="h-5 w-5" />
-          </button>
-
-          {/* the window — a NAGHAM card, scaled up */}
-          <div className="absolute inset-0 flex items-center justify-center p-4 pt-20 sm:p-8 sm:pt-24">
-            <div className="flex max-h-full w-full max-w-lg flex-col overflow-hidden rounded-2xl border border-sage bg-white shadow-[0_22px_44px_-18px_rgba(31,61,43,0.35)]">
-              {/* window header — identical to the tile header */}
-              <div className="flex items-center gap-2.5 border-b border-sage/60 px-4 py-3">
-                <img
-                  src="/images/logo.png"
-                  alt="NAGHAM Clinics"
-                  className="h-8 w-8 rounded-full object-cover ring-1 ring-gold/40"
-                />
-                <span className="text-sm font-semibold text-ink/80" dir="ltr">
-                  nagham_clinics
-                </span>
-                <Instagram className="ms-auto h-4 w-4 text-ink/30" strokeWidth={1.5} />
-              </div>
-
-              {/* the Instagram post, large */}
-              <div ref={hostRef} className="max-h-[62vh] overflow-y-auto bg-ivory">
-                {failed ? (
-                  <div className="flex flex-col items-center justify-center gap-4 px-8 py-16 text-center">
-                    <Instagram className="h-8 w-8 text-gold" strokeWidth={1.5} />
-                    <a
-                      href={url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full border border-forest/25 px-6 py-3 text-sm font-bold text-forest transition-colors hover:border-gold/60 hover:bg-gold/5"
-                    >
-                      <ExternalLink className="h-4 w-4" />
-                      {t.insta.viewPost}
-                    </a>
-                  </div>
-                ) : (
-                  <iframe
-                    src={embedUrl}
-                    title={caption}
-                    allow="encrypted-media; clipboard-write"
-                    className="h-[58vh] w-full border-0"
-                  />
-                )}
-              </div>
-
-              {/* window footer — like the tile footer, plus the site CTA style */}
-              <div className="flex items-center gap-4 border-t border-sage/60 px-4 py-3">
-                <Heart className="h-4 w-4 text-ink/45" strokeWidth={1.5} />
-                <MessageCircle className="h-4 w-4 text-ink/45" strokeWidth={1.5} />
-                <span className="text-[0.68rem] font-medium text-ink/45">{caption}</span>
-                <a
-                  href={url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="ms-auto inline-flex items-center gap-1.5 rounded-full bg-forest px-4 py-1.5 text-[0.68rem] font-bold text-ivory transition-all duration-200 hover:scale-[1.03] hover:bg-forest-soft"
-                >
-                  <ExternalLink className="h-3 w-3" />
-                  {t.insta.viewPost}
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+    </a>
   )
 }
 
