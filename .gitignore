@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# npm wird nicht mehr verwendet (pnpm stattdessen)
+package-lock.json
