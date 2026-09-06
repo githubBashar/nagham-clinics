@@ -35,6 +35,21 @@ const POST_IMAGES = [
   '/images/gallery/skin.jpg',
 ]
 
+/**
+ * Optional cover photo for each real post (shown in the tile until the
+ * visitor taps play). GENERIC: to refresh a tile's preview, open the post
+ * on Instagram, screenshot/long-press the video cover, and drop the image
+ * into /public/images/gallery/ under the same name listed here. Leaving an
+ * entry as `null` shows the neutral play tile instead.
+ * (Instagram serves post images only inside its own embed — there is no
+ * token-free way to pull the cover image file automatically.)
+ */
+const REAL_POST_COVERS: (string | null)[] = [
+  '/images/gallery/laser.jpg',
+  '/images/gallery/dental.jpg',
+  '/images/gallery/botox.jpg',
+]
+
 declare global {
   interface Window {
     instgrm?: { Embeds: { process: () => void } }
@@ -49,7 +64,7 @@ declare global {
  * If Instagram is blocked (ad blocker / offline), the tile degrades to a
  * linked cover instead of a broken box.
  */
-function RealTile({ url, caption }: { url: string; caption: string }) {
+function RealTile({ url, caption, cover }: { url: string; caption: string; cover: string | null }) {
   const { t } = useLanguage()
   const hostRef = useRef<HTMLDivElement>(null)
   const [playing, setPlaying] = useState(false)
@@ -87,14 +102,26 @@ function RealTile({ url, caption }: { url: string; caption: string }) {
           <button
             type="button"
             onClick={() => setPlaying(true)}
-            className="absolute inset-0 z-20 flex cursor-pointer flex-col items-center justify-center gap-3 bg-forest/[0.03] transition-colors hover:bg-gold/10"
+            className="absolute inset-0 z-20 cursor-pointer"
             aria-label={t.insta.viewPost}
           >
-            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-forest text-ivory shadow-lg transition-transform duration-200 group-hover:scale-105">
-              <Play className="ms-0.5 h-5 w-5 fill-current" />
-            </span>
-            <span className="text-[0.65rem] font-semibold text-ink/50" dir="ltr">
-              @nagham_clinics
+            {/* cover photo of the post (falls back to a neutral tile) */}
+            {cover && (
+              <img
+                src={cover}
+                alt={caption}
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+              />
+            )}
+            {/* scrim + play button, same spot on every tile */}
+            <span className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-forest/25 transition-colors group-hover:bg-forest/35">
+              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-forest/90 text-ivory shadow-lg backdrop-blur-sm transition-transform duration-200 group-hover:scale-105">
+                <Play className="ms-0.5 h-5 w-5 fill-current" />
+              </span>
+              <span className="rounded-full bg-forest-deep/70 px-3 py-1 text-[0.62rem] font-semibold text-ivory/90 backdrop-blur-sm" dir="ltr">
+                @nagham_clinics
+              </span>
             </span>
           </button>
         ) : failed ? (
@@ -152,6 +179,7 @@ export default function Gallery() {
   const tiles = t.gallery.captions.map((caption, i) => ({
     caption,
     realUrl: REAL_POSTS[i] ?? null,
+    realCover: REAL_POST_COVERS[i] ?? null,
     photo: POST_IMAGES[i % POST_IMAGES.length],
   }))
 
@@ -164,7 +192,7 @@ export default function Gallery() {
           {tiles.map((tile) => (
             <StaggerItem key={tile.realUrl ?? tile.caption}>
               {tile.realUrl ? (
-                <RealTile url={tile.realUrl} caption={tile.caption} />
+                <RealTile url={tile.realUrl} caption={tile.caption} cover={tile.realCover} />
               ) : (
                 <a
                   href={CLINIC.instagram}
