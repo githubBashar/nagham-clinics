@@ -43,7 +43,7 @@ const REAL_POST_COVERS: (string | null)[] = [
  * cover photo, play badge, like/comment bar. A tap opens the post directly
  * on instagram.com in a new tab — no inline player, no overlay.
  */
-function RealTile({ url, caption, cover }: { url: string; caption: string; cover: string | null }) {
+function RealTile({ url, cover }: { url: string; cover: string | null }) {
   const { t } = useLanguage()
 
   return (
@@ -72,7 +72,7 @@ function RealTile({ url, caption, cover }: { url: string; caption: string; cover
         {cover && (
           <img
             src={cover}
-            alt={caption}
+            alt={t.insta.viewPost}
             loading="lazy"
             className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
           />
@@ -91,7 +91,6 @@ function RealTile({ url, caption, cover }: { url: string; caption: string; cover
       <div className="flex items-center gap-4 px-3.5 py-2.5">
         <Heart className="h-4 w-4 text-ink/45 transition-colors group-hover:text-gold" strokeWidth={1.5} />
         <MessageCircle className="h-4 w-4 text-ink/45" strokeWidth={1.5} />
-        <span className="ms-auto text-[0.68rem] font-medium text-ink/45">{caption}</span>
       </div>
     </a>
   )
@@ -104,7 +103,6 @@ export default function Gallery() {
   const tiles = REAL_POSTS.map((url, i) => ({
     url,
     cover: REAL_POST_COVERS[i] ?? null,
-    caption: t.gallery.captions[i % t.gallery.captions.length],
   }))
 
   return (
@@ -115,7 +113,7 @@ export default function Gallery() {
         <Stagger className="mt-16 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
           {tiles.map((tile) => (
             <StaggerItem key={tile.url}>
-              <RealTile url={tile.url} caption={tile.caption} cover={tile.cover} />
+              <RealTile url={tile.url} cover={tile.cover} />
             </StaggerItem>
           ))}
         </Stagger>
