@@ -4,6 +4,6 @@ export const CLINIC = {
   phonesIntl: ['+963940299553', '+963940299113'],
   whatsapp: 'https://wa.me/963940299553',
   instagram: 'https://www.instagram.com/nagham_clinics',
-  facebook: 'https://www.facebook.com/search/top?q=Nagham%20Clinic',
+  facebook: 'https://www.facebook.com/share/1GmZNd3mRA/',
   maps: 'https://www.google.com/maps/search/?api=1&query=Ash-Shahbandar+Square+Damascus',
 } as const
