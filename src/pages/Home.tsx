@@ -9,7 +9,6 @@ import Team from '@/sections/Team'
 import Services from '@/sections/Services'
 import Why from '@/sections/Why'
 import Gallery from '@/sections/Gallery'
-import InstaFeed from '@/sections/InstaFeed'
 import Testimonials from '@/sections/Testimonials'
 import Contact from '@/sections/Contact'
 import Footer from '@/sections/Footer'
@@ -34,7 +33,6 @@ function Sections() {
         <Why />
         <Ticker />
         <Gallery />
-        <InstaFeed />
         <Testimonials />
         <Contact />
       </main>
