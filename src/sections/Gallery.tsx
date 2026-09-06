@@ -92,32 +92,31 @@ function RealTile({ url, caption, cover }: { url: string; caption: string; cover
         <Instagram className="ms-auto h-3.5 w-3.5 text-ink/30" strokeWidth={1.5} />
       </div>
 
-      {/* media area — cover photo with play button */}
-      <div className="relative aspect-square overflow-hidden bg-ivory">
-        <button
-          type="button"
-          onClick={() => setPlaying(true)}
-          className="absolute inset-0 z-20 cursor-pointer"
-          aria-label={t.insta.viewPost}
-        >
-          {cover && (
-            <img
-              src={cover}
-              alt={caption}
-              loading="lazy"
-              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
-            />
-          )}
-          <span className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-forest/25 transition-colors group-hover:bg-forest/35">
-            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-forest/90 text-ivory shadow-lg backdrop-blur-sm transition-transform duration-200 group-hover:scale-105">
-              <Play className="ms-0.5 h-5 w-5 fill-current" />
-            </span>
-            <span className="rounded-full bg-forest-deep/70 px-3 py-1 text-[0.62rem] font-semibold text-ivory/90 backdrop-blur-sm" dir="ltr">
-              @nagham_clinics
-            </span>
+      {/* media area — cover photo; the whole area is the play button, so a
+          single tap opens the large overlay immediately */}
+      <button
+        type="button"
+        onClick={() => setPlaying(true)}
+        className="relative block aspect-square w-full cursor-pointer overflow-hidden bg-ivory text-start"
+        aria-label={t.insta.viewPost}
+      >
+        {cover && (
+          <img
+            src={cover}
+            alt={caption}
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+          />
+        )}
+        <span className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-forest/25 transition-colors group-hover:bg-forest/35">
+          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-forest/90 text-ivory shadow-lg backdrop-blur-sm transition-transform duration-200 group-hover:scale-105">
+            <Play className="ms-0.5 h-5 w-5 fill-current" />
           </span>
-        </button>
-      </div>
+          <span className="rounded-full bg-forest-deep/70 px-3 py-1 text-[0.62rem] font-semibold text-ivory/90 backdrop-blur-sm" dir="ltr">
+            @nagham_clinics
+          </span>
+        </span>
+      </button>
 
       {/* like / comment bar */}
       <div className="flex items-center gap-4 px-3.5 py-2.5">
@@ -125,16 +124,6 @@ function RealTile({ url, caption, cover }: { url: string; caption: string; cover
         <MessageCircle className="h-4 w-4 text-ink/45" strokeWidth={1.5} />
         <span className="ms-auto text-[0.68rem] font-medium text-ink/45">{caption}</span>
       </div>
-
-      {/* whole tile also links to the real post (Instagram attribution);
-          the play button above (z-20) wins the click */}
-      <a
-        href={url}
-        target="_blank"
-        rel="noreferrer"
-        className="absolute inset-0 z-10"
-        aria-label={t.insta.viewPost}
-      />
 
       {/* large overlay player — nearly full-screen Instagram embed */}
       {playing && (
