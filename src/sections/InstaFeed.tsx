@@ -10,12 +10,20 @@ import { CLINIC } from '@/lib/constants'
  * blockquote.instagram-media + Instagram's own embed.js, exactly what the
  * "..." > Embed > Copy embed code" flow generates). No API token, no scraper.
  *
- * HOW TO UPDATE THE 3 POSTS: open a post in Instagram > "..." > Copy Link
- * and replace the permalink in POST_URLS below. Everything else adapts.
+ * GENERIC: this section renders whatever permalinks are listed below.
+ * To show newer posts, open a post/reel in Instagram > "..." > Copy Link,
+ * strip any "?stkn=..." / "?igsh=..." tracking part, and replace the URLs
+ * here — the first 3 entries are embedded. No other code change needed.
+ *
+ * (Fully automatic "always the newest 3 posts" requires Instagram's official
+ * API with an access token that expires every 60 days and a server to
+ * refresh it — Meta does not allow fetching a profile's posts from the
+ * browser without one. This config list is the maintenance-free alternative.)
  */
 const POST_URLS: string[] = [
-  'https://www.instagram.com/p/DcWUt9BIWL2/',
-  // TODO: add the permalinks of posts 2 and 3 (Instagram > post > "..." > Copy Link)
+  'https://www.instagram.com/reel/Dc6oBScjanF/',
+  'https://www.instagram.com/reel/Dc3fWhEoBt1/',
+  'https://www.instagram.com/reel/DctfGexIvbe/',
 ]
 
 declare global {
